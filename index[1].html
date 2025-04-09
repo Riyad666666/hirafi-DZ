@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Untitled</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>حرفي - منصة خدمات</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <!-- إضافة مكتبة Select2 -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <style>
+    :root {
+      --primary-color: #0d1b2a; /* الأزرق القاتم */
+      --secondary-color: #1a2637; /* الأزرق الداكن */
+      --accent-color: #ff7f50;
+      --text-color: #ffffff;
+      --card-bg: #253548; /* خلفية البطاقات */
+      --hover-color: #5f7289;
+      --border-color: #2a3d56;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Amiri', serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    header {
+      background-color: var(--primary-color);
+      padding: 1.5rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+
+    nav {
+      background-color: var(--primary-color);
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding: 0.75rem;
+      position: relative;
+    }
+
+    nav a {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      padding: 0.5rem;
+    }
+
+    nav a:hover {
+      color: var(--text-color);
+      text-decoration: underline;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: var(--card-bg);
+      padding: 1rem;
+      border-radius: 8px;
+      z-index: 1000;
+      width: 280px;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+      transform: translateY(0);
+    }
+
+    .dropdown-content form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .dropdown-content input,
+    .dropdown-content button,
+    .dropdown-content textarea,
+    .dropdown-content select {
+      padding: 0.5rem;
+      border-radius: 5px;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+    }
+
+    .dropdown-content button {
+      background-color: var(--accent-color);
+      cursor: pointer;
+    }
+
+    .hero {
+      background-color: var(--card-bg);
+      padding: 3rem 2rem;
+      text-align: center;
+      border-radius: 8px;
+      margin: 1rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      flex-direction: column;
+    }
+
+    .search-bar select {
+      width: 300px;
+      font-family: 'Amiri', serif;
+      font-size: 1.1rem;
+    }
+
+    /* تنسيق Select2 */
+    .select2-container--default .select2-selection--single {
+      background-color: var(--primary-color);
+      border: 2px solid var(--accent-color);
+      border-radius: 12px;
+      height: 40px;
+      padding: 0.5rem;
+      color: var(--text-color);
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+      color: var(--text-color);
+      font-family: 'Amiri', serif;
+      font-size: 1.1rem;
+      line-height: 28px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+      height: 36px;
+      width: 20px;
+    }
+
+    .select2-container--default .select2-selection--single:hover {
+      background-color: var(--hover-color);
+      border-color: var(--text-color);
+    }
+
+    /* تنسيق القائمة المنسدلة */
+    .select2-dropdown {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-family: 'Amiri', serif;
+      color: var(--text-color);
+    }
+
+    .select2-results__option {
+      padding: 0.8rem;
+      color: var(--text-color);
+      font-size: 1.1rem;
+    }
+
+    .select2-results__option--highlighted {
+      background-color: var(--hover-color);
+      color: var(--text-color);
+    }
+
+    .select2-results__option--selected {
+      background-color: var(--accent-color);
+      color: var(--text-color);
+    }
+
+    /* تنسيق شريط التمرير */
+    .select2-results::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .select2-results::-webkit-scrollbar-track {
+      background: var(--secondary-color);
+    }
+
+    .select2-results::-webkit-scrollbar-thumb {
+      background: var(--accent-color);
+      border-radius: 4px;
+    }
+
+    .select2-results::-webkit-scrollbar-thumb:hover {
+      background: var(--text-color);
+    }
+
+    .search-bar i {
+      font-size: 2rem;
+      color: var(--accent-color);
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .search-bar i:hover {
+      color: var(--text-color);
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .category {
+      background-color: var(--card-bg);
+      padding: 2rem;
+      text-align: center;
+      font-weight: bold;
+      color: var(--text-color);
+      border-radius: 12px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .category:hover {
+      transform: scale(1.05);
+      background-color: var(--hover-color);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+
+    .form-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .form-container form {
+      background-color: var(--card-bg);
+      padding: 2rem;
+      width: 400px;
+      border-radius: 8px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-container form input,
+    .form-container form button,
+    .form-container form textarea,
+    .form-container form select {
+      padding: 0.6rem;
+      width: 100%;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+    }
+
+    .form-container form button {
+      background-color: var(--accent-color);
+      cursor: pointer;
+    }
+
+    .form-container.active {
+      display: flex;
+    }
+
+    .night-mode-icon {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 2rem;
+      color: var(--accent-color);
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .search-bar select {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://i.ibb.co/M5CQsGT5/20250409-120135.png" alt="شعار موقع حرفي" style="width: 200px; height: auto;">
+    <p>اعثر على أقرب الحرفيين واطلب خدمتهم بسهولة</p>
+  </header>
+
+  <nav>
+    <a href="#">الرئيسية</a>
+    <div class="dropdown">
+      <a href="javascript:void(0)" onclick="toggleLoginForm()">تسجيل الدخول</a>
+      <div class="dropdown-content">
+        <form>
+          <input type="text" placeholder="البريد الإلكتروني أو رقم الهاتف">
+          <input type="password" placeholder="كلمة المرور">
+          <button>دخول</button>
+        </form>
+      </div>
+    </div>
+    <div class="dropdown">
+      <a href="javascript:void(0)" onclick="toggleSignupForm()">إنشاء حساب</a>
+    </div>
+    <div class="dropdown">
+      <a href="javascript:void(0)" onclick="toggleCraftsmanForm()">انضم كحرفي</a>
+    </div>
+    <div class="dropdown">
+      <a href="javascript:void(0)" onclick="toggleContractorsForm()">مقاولون</a>
+      <div class="dropdown-content">
+        <form>
+          <input type="text" placeholder="البريد الإلكتروني أو رقم الهاتف">
+          <input type="password" placeholder="كلمة المرور">
+          <button>تسجيل</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h2>هل تبحث عن سبّاك؟ نجّار؟ كهربائي؟</h2>
+    <p>كلهم في متناول يدك عبر تطبيق وموقع المحترف</p>
+    <div class="search-bar">
+      <select id="service-select">
+        <option value="">ابحث عن خدمة أو حرفي...</option>
+        <option value="السباكة">السباكة</option>
+        <option value="النجارة">النجارة</option>
+        <option value="الكهرباء">الكهرباء</option>
+        <option value="الدهان">الدهان</option>
+        <option value="الخياطة">الخياطة</option>
+        <option value="الحدادة">الحدادة</option>
+        <option value="البناء">البناء</option>
+        <option value="التكييف">التكييف</option>
+        <option value="الزليج والسيراميك">الزليج والسيراميك</option>
+        <option value="الجبس والديكور">الجبس والديكور</option>
+        <option value="تصليح الهواتف">تصليح الهواتف</option>
+        <option value="إصلاح السيارات">إصلاح السيارات</option>
+        <option value="نقل الاثاث">نقل الاثاث</option>
+        <option value="تركيب الكاميرات">تركيب الكاميرات</option>
+        <option value="صيانة الحواسيب">صيانة الحواسيب</option>
+        <option value="مزراع">مزراع</option>
+        <option value="راعي غنم">راعي غنم</option>
+        <option value="بستاني">بستاني</option>
+        <option value="عاملة نظافة">عاملة نظافة</option>
+        <option value="طباخ">طباخ</option>
+        <option value="سائق">سائق</option>
+        <option value="حلاواني">حلاواني</option>
+        <option value="منقب مياه">منقب مياه</option>
+        <option value="أخرى">أخرى</option>
+      </select>
+      <select id="city-select">
+        <option value="">اختر المدينة</option>
+        <option value="أدرار">أدرار</option>
+        <option value="الشلف">الشلف</option>
+        <option value="الأغواط">الأغواط</option>
+        <option value="أم البواقي">أم البواقي</option>
+        <option value="باتنة">باتنة</option>
+        <option value="بجاية">بجاية</option>
+        <option value="بسكرة">بسكرة</option>
+        <option value="بشار">بشار</option>
+        <option value="البليدة">البليدة</option>
+        <option value="البويرة">البويرة</option>
+        <option value="تمنراست">تمنراست</option>
+        <option value="تبسة">تبسة</option>
+        <option value="تلمسان">تلمسان</option>
+        <option value="تيارت">تيارت</option>
+        <option value="تيزي وزو">تيزي وزو</option>
+        <option value="الجزائر">الجزائر</option>
+        <option value="الجلفة">الجلفة</option>
+        <option value="جيجل">جيجل</option>
+        <option value="سطيف">سطيف</option>
+        <option value="سعيدة">سعيدة</option>
+        <option value="سكيكدة">سكيكدة</option>
+        <option value="سيدي بلعباس">سيدي بلعباس</option>
+        <option value="عنابة">عنابة</option>
+        <option value="قالمة">قالمة</option>
+        <option value="قسنطينة">قسنطينة</option>
+        <option value="المدية">المدية</option>
+        <option value="مستغانم">مستغانم</option>
+        <option value="المسيلة">المسيلة</option>
+        <option value="معسكر">معسكر</option>
+        <option value="ورقلة">ورقلة</option>
+        <option value="وهران">وهران</option>
+        <option value="البيض">البيض</option>
+        <option value="إليزي">إليزي</option>
+        <option value="برج بوعريريج">برج بوعريريج</option>
+        <option value="بومرداس">بومرداس</option>
+        <option value="الطارف">الطارف</option>
+        <option value="تندوف">تندوف</option>
+        <option value="تيسمسيلت">تيسمسيلت</option>
+        <option value="الوادي">الوادي</option>
+        <option value="خنشلة">خنشلة</option>
+        <option value="سوق أهراس">سوق أهراس</option>
+        <option value="تيبازة">تيبازة</option>
+        <option value="ميلة">ميلة</option>
+        <option value="عين الدفلى">عين الدفلى</option>
+        <option value="النعامة">النعامة</option>
+        <option value="عين تموشنت">عين تموشنت</option>
+        <option value="غرداية">غرداية</option>
+        <option value="غليزان">غليزان</option>
+        <option value="تيميمون">تيميمون</option>
+        <option value="برج باجي مختار">برج باجي مختار</option>
+        <option value="أولاد جلال">أولاد جلال</option>
+        <option value="بني عباس">بني عباس</option>
+        <option value="عين صالح">عين صالح</option>
+        <option value="عين قزام">عين قزام</option>
+        <option value="تقرت">تقرت</option>
+        <option value="جانت">جانت</option>
+        <option value="المغير">المغير</option>
+        <option value="المنيعة">المنيعة</option>
+      </select>
+      <i class="fas fa-search" onclick="searchService()"></i>
+    </div>
+  </section>
+
+  <section class="categories">
+    <div class="category">السباكة</div>
+    <div class="category">النجارة</div>
+    <div class="category">الكهرباء</div>
+    <div class="category">الدهان</div>
+    <div class="category">الخياطة</div>
+    <div class="category">الحدادة</div>
+    <div class="category">البناء</div>
+    <div class="category">التكييف</div>
+    <div class="category">الزليج والسيراميك</div>
+    <div class="category">الجبس والديكور</div>
+    <div class="category">تصليح الهواتف</div>
+    <div class="category">إصلاح السيارات</div>
+    <div class="category">نقل الاثاث</div>
+    <div class="category">تركيب الكاميرات</div>
+    <div class="category">صيانة الحواسيب</div>
+    <div class="category">مزراع</div>
+    <div class="category">راعي غنم</div>
+    <div class="category">بستاني</div>
+    <div class="category">عاملة نظافة</div>
+    <div class="category">طباخ</div>
+    <div class="category">سائق</div>
+    <div class="category">حلاواني</div>
+    <div class="category">منقب مياه</div>
+    <div class="category">أخرى</div>
+  </section>
+
+  <footer>
+    <p>جميع الحقوق محفوظة © 2025 - رياض بعيطيش</p>
+  </footer>
+
+  <!-- نموذج تسجيل الدخول -->
+  <div class="form-container" id="loginForm">
+    <form>
+      <h3>تسجيل الدخول</h3>
+      <input type="text" placeholder="البريد الإلكتروني أو رقم الهاتف">
+      <input type="password" placeholder="كلمة المرور">
+      <button type="submit">دخول</button>
+      <button type="button" onclick="toggleLoginForm()">إغلاق</button>
+    </form>
+  </div>
+
+  <!-- نموذج إنشاء حساب -->
+  <div class="form-container" id="signupForm">
+    <form>
+      <h3>إنشاء حساب</h3>
+      <input type="text" placeholder="الاسم الكامل">
+      <input type="email" placeholder="البريد الإلكتروني">
+      <input type="tel" placeholder="رقم الهاتف">
+      <input type="password" placeholder="كلمة المرور">
+      <button type="submit">إنشاء حساب</button>
+      <button type="button" onclick="toggleSignupForm()">إغلاق</button>
+    </form>
+  </div>
+
+  <!-- نموذج انضم كحرفي -->
+  <div class="form-container" id="craftsmanForm">
+    <form>
+      <h3>انضم كحرفي</h3>
+      <input type="text" placeholder="الاسم الكامل">
+      <input type="email" placeholder="البريد الإلكتروني">
+      <input type="tel" placeholder="رقم الهاتف">
+      <input type="text" placeholder="الحرفة (مثل: سباك، نجار)">
+      <select>
+        <option value="">اختر المدينة</option>
+        <option value="الجزائر">الجزائر</option>
+        <option value="وهران">وهران</option>
+        <option value="قسنطينة">قسنطينة</option>
+        <!-- يمكن إضافة المزيد من المدن هنا -->
+      </select>
+      <input type="password" placeholder="كلمة المرور">
+      <button type="submit">تسجيل كحرفي</button>
+      <button type="button" onclick="toggleCraftsmanForm()">إغلاق</button>
+    </form>
+  </div>
+
+  <!-- نموذج تسجيل المقاولون -->
+  <div class="form-container" id="contractorsForm">
+    <form>
+      <h3>تسجيل كمقاول</h3>
+      <input type="text" placeholder="البريد الإلكتروني أو رقم الهاتف">
+      <input type="password" placeholder="كلمة المرور">
+      <button type="submit">تسجيل</button>
+      <button type="button" onclick="toggleContractorsForm()">إغلاق</button>
+    </form>
+  </div>
+
+  <!-- تفعيل Select2 -->
+  <script>
+    $(document).ready(function() {
+      $('#service-select').select2({
+        dir: "rtl",
+        placeholder: "ابحث عن خدمة أو حرفي...",
+        allowClear: true
+      });
+      $('#city-select').select2({
+        dir: "rtl",
+        placeholder: "اختر المدينة",
+        allowClear: true
+      });
+    });
+
+    // وظيفة تبديل نموذج تسجيل الدخول
+    function toggleLoginForm() {
+      document.getElementById('loginForm').classList.toggle('active');
+    }
+
+    // وظيفة تبديل نموذج إنشاء حساب
+    function toggleSignupForm() {
+      document.getElementById('signupForm').classList.toggle('active');
+    }
+
+    // وظيفة تبديل نموذج انضم كحرفي
+    function toggleCraftsmanForm() {
+      document.getElementById('craftsmanForm').classList.toggle('active');
+    }
+
+    // وظيفة تبديل نموذج تسجيل المقاولون
+    function toggleContractorsForm() {
+      document.getElementById('contractorsForm').classList.toggle('active');
+    }
+  </script>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
